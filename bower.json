@@ -1,0 +1,23 @@
+{
+  "name": "allpassport",
+  "description": "One-stop shop for all your passport-related authentication options",
+  "main": "",
+  "authors": [
+    "Rexford Nkansah <hello@khophi.co>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "passport"
+  ],
+  "homepage": "https://github.com/seanmavley/allpassport",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.3"
+  }
+}

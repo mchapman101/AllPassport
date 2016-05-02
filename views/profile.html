@@ -1,0 +1,10 @@
+{% extends './layout.html' %}
+{% block title %} Profile Page {% endblock %}
+
+{% block body %}
+
+Extending Layout. This is Profile page
+{% if user.local.email %}
+User email: {{ user.local.email }}
+{% endif %}
+{% endblock %}

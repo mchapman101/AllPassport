@@ -1,0 +1,33 @@
+{% extends "./layout.html" %}
+
+{% block title %} Homepage {% endblock %}
+
+{% block body %}
+<style type="text/css">
+  .banner {
+    width:100%;
+    margin-top:20px;
+    text-align: center;
+  }
+
+  .login {
+    margin-top:20px;
+  }
+
+  .login a {
+    padding:5px;
+  }
+</style>
+
+<div class="banner">
+  <h2>Welcome to the index page</h2>
+  <p>
+    If you're logged in, your <strong>{{ user.username | default('Username') }}</strong> and/or <strong>{{ user.name }}</strong> will show here.
+  </p>
+
+  <div class="login">
+    <a href="/login">Login</a> &bull; <a href="/register">Register</a> {% if user %}&bull; <a href="/logout">Logout</a>{% endif %}
+  </div>
+</div>
+
+{% endblock %}

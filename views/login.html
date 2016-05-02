@@ -1,0 +1,63 @@
+{% extends './layout.html' %} {% block title %} Login/Sign Up page {% endblock %} {% block body %}
+<!-- Thanks to http://codepen.io/trangsihung/pen/zbwGx -->
+<div class="form-wrap">
+    <div class="tabs">
+        <h3 class="signup-tab"><a {% if active=='register' %}class="active"{% endif %} href="#signup-tab-content">Sign Up</a></h3>
+        <h3 class="login-tab"><a {% if active=='login' %}class="active"{% endif %} href="#login-tab-content">Login</a></h3>
+        <h3 class="login-tab"><a {% if active=='social' %}class="active"{% endif %} href="#social-tab-content">Social</a></h3>
+    </div>
+    <!--.tabs-->
+    {% if error %}
+    <div class="error-message">
+        {{ error }}
+    </div>
+    {% endif %}
+    <div class="tabs-content">
+        <div id="signup-tab-content" {% if active=='register' %}class="active" {% endif %}>
+            <form class="signup-form" action="/register" method="post">
+                <input type="email" class="input" id="email" name="email" value="{{ form.email }}" autocomplete="off" placeholder="Email">
+                <input type="text" class="input" id="username" name="username" value="{{ form.username }}" autocomplete="off" placeholder="Username">
+                <input type="password" class="input" id="password" name="password" autocomplete="off" placeholder="Password">
+                <input type="submit" class="button" value="Sign Up">
+            </form>
+            <!--.login-form-->
+            <div class="help-text">
+                <p>By signing up, you agree to our</p>
+                <p><a href="#">Terms of service</a></p>
+            </div>
+            <!--.help-text-->
+        </div>
+        <!--.signup-tab-content-->
+        <div id="login-tab-content" {% if active=='login' %} class="active" {% endif %}>
+            <form class="login-form" action="/login" method="post">
+                <input type="text" class="input" id="email" name="email" autocomplete="off" placeholder="Email or Username">
+                <input type="password" class="input" id="password" name="password" autocomplete="off" placeholder="Password">
+                <input type="checkbox" class="checkbox" id="remember_me">
+                <label for="remember_me">Remember me</label>
+                <input type="submit" class="button" value="Login">
+            </form>
+            <!--.login-form-->
+            <div class="help-text">
+                <p><a href="#">Forget your password?</a></p>
+            </div>
+            <!--.help-text-->
+        </div>
+        <!-- for Social Auth -->
+        <div id="social-tab-content" {% if active=='social'%} class="active" {% endif %}>
+            <div class="help-text">
+                <p>Login using your</p>
+            </div>
+            <div>
+                <a href="/auth/google">Google</a>
+                <a href="/auth/facebook">Facebook</a>
+                <a href="/auth/twitter">Twitter</a>
+            </div>
+        </div>
+        <!--.login-tab-content-->
+    </div>
+    <!--.tabs-content-->
+</div>
+<!--.form-wrap-->
+<script type="text/javascript">
+</script>
+{% endblock %}
