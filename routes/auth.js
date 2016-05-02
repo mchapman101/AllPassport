@@ -13,6 +13,27 @@ module.exports = function(express, app, passport) {
     //         res.render('index', { user: req.user });
     //     });
 
+    authRoute.param('token', function(req, res, next, token) {
+        User.findOne({ 'local.resetPasswordToken': req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+            if (err) return next(err)
+            if (!user) {
+                req.flash('error', 'Password reset token is invalid or has expired.');
+                return res.render('forgot', { message: 'error happened' });
+            }
+            req.user = user;
+            next();
+        })
+    })
+
+    authRoute.route('/reset/:token')
+        .get(function(req, res) {
+            res.render('reset', {
+                user: req.user,
+                message: 'Success'
+            })
+        })
+
+
     authRoute.route('/forgot')
         .get(function(req, res) {
             res.render('forgot');
