@@ -8,3 +8,5 @@ node_modules
 *.out
 npm-debug.log
 config/_config.js
+config/_email.js
+

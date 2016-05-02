@@ -1,0 +1,37 @@
+{% extends "./layout.html" %}
+
+{% block title %} Homepage {% endblock %}
+
+{% block body %}
+
+<div class="form-wrap">
+    <div class="tabs">
+        <h3 class="signup-tab" style="width: 100%;"><a class="active" href="#signup-tab-content">Forgot</a></h3>
+    </div>
+    <!--.tabs-->
+    {% if message %}
+    <div class="error-message">
+        {{ message }}
+    </div>
+    {% endif %}
+    <div class="tabs-content">
+        <div id="signup-tab-content" class="active">
+            <form class="signup-form" action="/forgot" method="post">
+                <input type="email" class="input" id="email" name="email" autocomplete="off" placeholder="Email">
+                <input type="submit" class="button" value="Reset password">
+            </form>
+            <!--.login-form-->
+            <div class="help-text">
+                <p><a href="#">Go home</a></p>
+            </div>
+            <!--.help-text-->
+        </div>
+        <!--.login-tab-content-->
+    </div>
+    <!--.tabs-content-->
+</div>
+<!--.form-wrap-->
+<script type="text/javascript">
+</script>
+
+{% endblock %}

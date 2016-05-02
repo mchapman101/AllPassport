@@ -1,3 +1,10 @@
+var waterfall = require('async-waterfall');
+var crypto = require('crypto');
+var User = require('../models/user');
+var emailService = require('../config/_email'); // ain't checked in by git
+var nodemailer = require('nodemailer');
+// var smtpTransport = require('nodemailer-smtp-transport');
+
 module.exports = function(express, app, passport) {
     var authRoute = express.Router();
     // show the home page (will also have our login links)
@@ -5,6 +12,58 @@ module.exports = function(express, app, passport) {
     //     .get(function(req, res) {
     //         res.render('index', { user: req.user });
     //     });
+
+    authRoute.route('/forgot')
+        .get(function(req, res) {
+            res.render('forgot');
+        })
+
+        .post(function(req, res, next) {
+            waterfall([
+                function(done) {
+                    crypto.randomBytes(20, function(err, buf) {
+                        var token = buf.toString('hex');
+                        done(err, token);
+                    });
+                },
+                function(token, done) {
+                    User.findOne({ 'local.email': req.body.email }, function(err, user) {
+                        if (!user) {
+                            req.flash('error', 'No account with that email address exist.');
+                            return res.redirect('/forgot');
+                        }
+
+                        user.local.resetPasswordToken = token;
+                        user.resetPasswordExpires = Date.now() + 3600000;
+
+                        user.save(function(err) {
+                            done(err, token, user);
+                        });
+                    });
+                },
+                function(token, user, done) {
+                    var smtpTransport = nodemailer.createTransport( emailService );
+
+                    var mailOptions = {
+                        to: user.local.email,
+                        from: 'From App',
+                        subject: 'Node.js Password Reset',
+                        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                            'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                            'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+                            'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+                    };
+
+                    smtpTransport.sendMail(mailOptions, function(err) {
+                        req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+                        done(err, 'done');
+                    });
+                }
+            ], function(err) {
+                if(err) return next(err);
+                res.redirect('/forgot');
+            });
+        });
 
     // PROFILE SECTION =========================
     authRoute.route('/profile')
