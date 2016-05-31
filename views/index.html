@@ -22,7 +22,7 @@
 <div class="banner">
   <h2>Welcome to the index page</h2>
   <p>
-    If you're logged in, your <strong>{{ user.username | default('Username') }}</strong> and/or <strong>{{ user.name }}</strong> will show here.
+    If you're logged in, your <strong>{{ user.username | default('Username') }}</strong> and/or <strong>{{ user.name | default('Name')}}</strong> will show here.
   </p>
 
   <div class="login">

@@ -5,7 +5,7 @@ var TwitterStrategy  = require('passport-twitter').Strategy;
 var GoogleStrategy   = require('passport-google-oauth2').Strategy;
 
 // load up the user model
-var User       = require('../models/user');
+var User       = require('../app/models/user');
 
 var configAuth = require('./_config'); // ain't checked in by git
 

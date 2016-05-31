@@ -32,7 +32,7 @@ app.set('view engine', 'html');
 
 app.set('views', path.join(__dirname, 'views'));
 
-app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/client/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -45,20 +45,20 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(flash());
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '/client')));
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // ROUTES
-var authRouter = require('./routes/auth.js')(express, app, passport); 
+var authRouter = require('./app/auth-route.js')(express, app, passport); 
 app.use('/', authRouter);
 
 // api router endpoint for AngularJS
-var apiRouter = require('./routes/api.js')(express);
+var apiRouter = require('./app/api-route.js')(express);
 app.use('/api', apiRouter);
 
 // Sends back AngularJS file
-var myAppRouter = require('./routes/myapp.js')(express, path);
-app.use('/', myAppRouter);
+// var myAppRouter = require('./app/myapp-route.js')(express, path);
+// app.use('/', myAppRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
