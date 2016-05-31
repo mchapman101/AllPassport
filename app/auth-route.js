@@ -9,10 +9,9 @@ module.exports = function(express, app, passport) {
   var authRoute = express.Router();
   // show the home page (will also have our login links)
   authRoute.route('/')
-      .get(function(req, res) {
-        if(req.user) res.render('index', { user: req.user });
-        res.render('index');
-      });
+    .get(function(req, res) {
+      res.render('index', { user: req.user });
+    });
 
   // PROFILE SECTION =========================
   authRoute.route('/profile')
@@ -40,12 +39,14 @@ module.exports = function(express, app, passport) {
     .get(function(req, res) {
       res.render('login', {
         user: req.user,
+        error: req.flash('error'),
+        loginMessage: req.flash('loginMessage'),
         active: 'login'
       });
     })
     // process the login form
     .post(passport.authenticate('local-login', {
-      successRedirect: '/profile', 
+      successRedirect: '/profile',
       failureRedirect: '/login',
       failureFlash: true
     }));
@@ -55,7 +56,11 @@ module.exports = function(express, app, passport) {
   authRoute.route('/register')
     .get(function(req, res) {
       // redirects to 'login'. Login & Signup on same page
-      res.render('login', { active: 'register' });
+      res.render('login', {
+        active: 'register',
+        error: req.flash('error'),
+        signupMessage: req.flash('signupMessage')
+      });
     })
     // process the signup form
     .post(passport.authenticate('local-signup', {
