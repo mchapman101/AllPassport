@@ -57,8 +57,8 @@ var apiRouter = require('./app/api-route.js')(express);
 app.use('/api', apiRouter);
 
 // Sends back AngularJS file
-// var myAppRouter = require('./app/myapp-route.js')(express, path);
-// app.use('/', myAppRouter);
+var myAppRouter = require('./app/myapp-route.js')(express, path);
+app.use('/', myAppRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

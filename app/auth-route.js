@@ -46,7 +46,7 @@ module.exports = function(express, app, passport) {
     })
     // process the login form
     .post(passport.authenticate('local-login', {
-      successRedirect: '/profile',
+      successRedirect: '/',
       failureRedirect: '/login',
       failureFlash: true
     }));

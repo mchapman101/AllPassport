@@ -9,4 +9,4 @@ node_modules
 npm-debug.log
 config/_config.js
 config/_email.js
-
+client/lib

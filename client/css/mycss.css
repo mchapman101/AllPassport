@@ -1,0 +1,40 @@
+@charset "UTF-8";
+/**
+ * Rexford Nkansah
+ * Licensed under MIT Open Source
+ */
+
+.divider {
+  height: 1px;
+  overflow: hidden;
+  margin:10px 10px;
+  background-color: #e0e0e0; }
+
+.accordion-title {
+    font-size: 1em;
+}
+
+/* From here: http://zurb.com/building-blocks/material-card 
+with slight tweaks */
+.card {
+  overflow: hidden;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  color: #272727;
+  margin:0 0 10px 0;
+  border-radius: 2px; }
+  .card .title {
+    line-height: 1.5rem;
+    font-size: 1rem;
+    font-weight: 800; }
+  .card .content {
+    padding: 0.5rem;
+    padding-bottom: 0px;
+    font-weight: 300;
+    border-radius: 0 0 2px 2px; }
+  .card .action {
+    padding: 0.5rem; 
+    padding-top: 0px;}
+
+.hoverable:hover {
+  transition: box-shadow .25s;
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
