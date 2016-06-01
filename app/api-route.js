@@ -1,30 +1,23 @@
-module.exports = function(express) {
-  var apiRouter = express.Router();
-
-  apiRouter.route('/')
-    .get(function(req, res) {
-      res.json({
-        response: 'API root directory',
-      })
+module.exports = function(app, passport) {
+  app.get('/api', function(req, res) {
+    res.json({
+      response: 'API root directory',
     })
+  })
 
-  .post(function(req, res) {
+  app.post('/api', function(req, res) {
     res.json({
       response: 'You posted ' + req.body
     })
   })
 
-  apiRouter.route('/status')
-    .get(function(req, res) {
-      if (!req.isAuthenticated()) {
-        return res.status(200).json({
-          status: false
-        });
-      }
-      res.status(200).json({
-        status: true
+  app.get('/api/status', function(req, res, next) {
+    if (req.isAuthenticated()) {
+      res.json({
+        status: true,
+        user: req.user
       });
-    });
-
-  return apiRouter;
+      next();
+    }
+  });
 }

@@ -1,23 +1,13 @@
 var myApp = angular.module('myApp', ['ngRoute']);
 
-myApp.config(function ($routeProvider) {
+myApp.config(function ($routeProvider, $locationProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'templates/home.html',
-      access: {restricted: true}
-    })
-    .when('/login', {
-      templateUrl: 'templates/auth/login.html',
-      controller: 'loginController',
       access: {restricted: false}
     })
-    .when('/logout', {
-      controller: 'logoutController',
-      access: {restricted: true}
-    })
-    .when('/register', {
-      templateUrl: 'templates/auth/register.html',
-      controller: 'registerController',
+    .when('/login', {
+      template: '<h1> Trying to login <a href="/login">Login</a></h1>',
       access: {restricted: false}
     })
     .when('/one', {
@@ -40,7 +30,6 @@ myApp.run(function ($rootScope, $location, $route, AuthService) {
       .then(function(){
         if (next.access.restricted && !AuthService.isLoggedIn()){
           $location.path('/login');
-          $route.reload();
         }
       });
   });

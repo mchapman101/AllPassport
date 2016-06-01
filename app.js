@@ -49,12 +49,10 @@ app.use(express.static(path.join(__dirname, '/client')));
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // ROUTES
-var authRouter = require('./app/auth-route.js')(express, app, passport); 
-app.use('/', authRouter);
+require('./app/auth-route.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 // api router endpoint for AngularJS
-var apiRouter = require('./app/api-route.js')(express);
-app.use('/api', apiRouter);
+require('./app/api-route.js')(app, passport);
 
 // Sends back AngularJS file
 var myAppRouter = require('./app/myapp-route.js')(express, path);
